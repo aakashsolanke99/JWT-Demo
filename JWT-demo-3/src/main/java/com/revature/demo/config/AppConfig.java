@@ -17,22 +17,19 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class AppConfig {
 
-   @Bean
-   public UserDetailsService userDetailsService(){
-
-     UserDetails user= User.builder().username("swaraj").password(passwordEncoder().encode("swaraj@123")).roles("admin").build();
-      UserDetails user1= User.builder().username("krunal").password(passwordEncoder().encode("krunal@123")).roles("admin").build();
-
-      return new InMemoryUserDetailsManager(user,user1);   // this will create in memory user and store details to that
-   }
+//   @Bean
+//   public UserDetailsService userDetailsService(){
+//
+//     UserDetails user= User.builder().username("swaraj").password(passwordEncoder().encode("swaraj@123")).roles("admin").build();
+//      UserDetails user1= User.builder().username("krunal").password(passwordEncoder().encode("krunal@123")).roles("admin").build();
+//
+//      return new InMemoryUserDetailsManager(user,user1);   // this will create in memory user and store details to that
+//   }
 
    @Bean
    public PasswordEncoder passwordEncoder(){
       return new BCryptPasswordEncoder();
    }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {  //
-        return builder.getAuthenticationManager();
-    }
+
 }

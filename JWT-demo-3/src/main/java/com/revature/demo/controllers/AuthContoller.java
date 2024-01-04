@@ -2,7 +2,10 @@ package com.revature.demo.controllers;
 
 import com.revature.demo.models.JwtRequest;
 import com.revature.demo.models.JwtResponse;
+import com.revature.demo.models.User;
+import com.revature.demo.repositorys.UserRepository;
 import com.revature.demo.security.JWTHelper;
+import com.revature.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +29,8 @@ public class AuthContoller {
     @Autowired
     private JWTHelper helper;   // for creating jwt
 
+    @Autowired
+    private UserService userService;
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
 
@@ -59,6 +64,10 @@ public class AuthContoller {
         return "Credentials Invalid !!";
     }
 
+    @PostMapping("/create-user")
+    public User createUser(@RequestBody User user){
+         return userService.createUser(user);
+    }
 
 
 }

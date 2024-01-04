@@ -1,6 +1,9 @@
 package com.revature.demo.services;
 
 import com.revature.demo.models.User;
+import com.revature.demo.repositorys.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,19 +12,21 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    private List<User> store=new ArrayList<>();
 
-    public  UserService(){
-        store.add(new User(UUID.randomUUID().toString(),"Aakash Solanke","aakashsolanke99@gmail.com"));
-        store.add(new User(UUID.randomUUID().toString(),"Krunal Zodape","krunal@gmail.com"));
-        store.add(new User(UUID.randomUUID().toString(),"Rupali Zoadpe","rupali@gmail.com"));
+    @Autowired
+    private UserRepository userRepository;
 
-        store.add(new User(UUID.randomUUID().toString(),"Veera Rajput","veera@gmail.com"));
-
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<User> getUsers(){
-        return this.store;
+        return this.userRepository.findAll();
+    }
+
+    public User createUser(User user){
+        user.setUserId(UUID.randomUUID().toString());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
 

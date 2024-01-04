@@ -22,7 +22,7 @@ public class HomeController {
         return this.userService.getUsers();
     }
 
-    @GetMapping("/current-user")
+    @GetMapping("/create-user")
     public String getLoggedInUser(Principal principal){
         return principal.getName();   // return the name of current login in user
     }
