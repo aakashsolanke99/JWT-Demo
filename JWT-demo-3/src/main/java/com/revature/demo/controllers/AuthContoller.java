@@ -1,5 +1,6 @@
 package com.revature.demo.controllers;
 
+import com.revature.demo.dto.SignUpRequest;
 import com.revature.demo.models.JwtRequest;
 import com.revature.demo.models.JwtResponse;
 import com.revature.demo.models.User;
@@ -66,8 +67,8 @@ public class AuthContoller {
     }
 
     @PostMapping("/create-user")
-    public User createUser(@RequestBody User user){
-         return userService.createUser(user);
+    public User createUser(@RequestBody SignUpRequest signUpRequest){
+         return  (userService.createUser(signUpRequest));
     }
 
 

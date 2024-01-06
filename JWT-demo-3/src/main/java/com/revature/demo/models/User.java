@@ -1,20 +1,22 @@
 package com.revature.demo.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "user_table")
 public class User implements UserDetails {
@@ -25,11 +27,15 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String about;
+    private Role role;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if (this.role == null) {
+            return Collections.emptyList(); // or handle it appropriately
+        }
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

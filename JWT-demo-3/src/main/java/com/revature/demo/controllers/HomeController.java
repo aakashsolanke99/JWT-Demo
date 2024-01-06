@@ -24,8 +24,8 @@ public class HomeController {
         return this.userService.getUsers();
     }
 
-    @GetMapping("/create-user")
+    @GetMapping("/create-admin")
     public String getLoggedInUser(Principal principal){
-        return principal.getName();   // return the name of current login in user
+        return "hi aakash" ;  // return the name of current login in user
     }
 }

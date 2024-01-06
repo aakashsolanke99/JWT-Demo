@@ -1,5 +1,6 @@
 package com.revature.demo.config;
 
+import com.revature.demo.models.Role;
 import com.revature.demo.security.JwtAuthenticationEntryPoint;
 import com.revature.demo.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,10 +34,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         // configure
-        http.csrf(csrf->csrf.disable())
-                .cors(cors->cors.disable()).authorizeHttpRequests(
+        http.authorizeHttpRequests(
                         auth->
-                                auth.requestMatchers("/home/**").authenticated()
+                                auth.requestMatchers("/home/**").hasAnyAuthority(Role.ADMIN.name())
                                         .requestMatchers("/auth/login").permitAll()
                                         .requestMatchers("/auth/create-user").permitAll()
                                         .anyRequest().authenticated())
@@ -43,6 +44,9 @@ public class SecurityConfig {
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // statless menas we are not storing any thing on server
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
+        http.csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
