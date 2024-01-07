@@ -1,6 +1,7 @@
 package com.revature.demo.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +28,7 @@ public class User implements UserDetails {
     private String LastName;
     private String email;
     private String phoneNo;
+    @JsonIgnore
     private String password;
     private String address;
     private Role role;

@@ -25,7 +25,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JWTHelper jwtHelper;
 
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -89,7 +88,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             } else {
                 System.out.println("Validation fails !!");
             }
-
 
         }
 
