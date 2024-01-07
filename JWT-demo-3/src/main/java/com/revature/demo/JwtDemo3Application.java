@@ -28,11 +28,13 @@ public class JwtDemo3Application implements CommandLineRunner {
 		if(null == Adminuser){
 			User user=new User();
 			user.setUserId(UUID.randomUUID().toString());
-			user.setName("Admin");
+			user.setFirstName("Admin");
+			user.setLastName("Admin");
 			user.setEmail("admin@gmail.com");
+			user.setPhoneNo("9325529741");
 			user.setPassword(passwordEncoder.encode("Aakash@123"));
 			user.setRole(Role.ADMIN);
-			user.setAbout("this is admin");
+			user.setAddress("this is admin");
 
 			userRepository.save(user);
 

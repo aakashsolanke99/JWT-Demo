@@ -36,9 +36,9 @@ public class SecurityConfig {
         // configure
         http.authorizeHttpRequests(
                         auth->
-                                auth.requestMatchers("/home/**").hasAnyAuthority(Role.ADMIN.name())
-                                        .requestMatchers("/auth/login").permitAll()
-                                        .requestMatchers("/auth/create-user").permitAll()
+                                auth.requestMatchers("/admin/**").hasAnyAuthority(Role.ADMIN.name())
+                                        .requestMatchers("/user/login").permitAll()
+                                        .requestMatchers("/user/create-user").permitAll()
                                         .anyRequest().authenticated())
                 .exceptionHandling(ex->ex.authenticationEntryPoint(point))   // if any exception occers this will run
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // statless menas we are not storing any thing on server

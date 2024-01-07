@@ -3,30 +3,23 @@ package com.revature.demo.controllers;
 import com.revature.demo.models.User;
 import com.revature.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
-@RestController
-@RequestMapping("/admin")
-public class HomeController {
-
+@Controller
+@RequestMapping("/user")
+public class UserController {
     @Autowired
     private UserService userService;
+    @GetMapping("/getAllUser")
+    public List<User> getUser(){
 
-//    @GetMapping("user")
-//    public List<User> getUser(){
-//
-//        return this.userService.getUsers();
-//    }
-
-    @GetMapping("/create-admin")
-    public String getLoggedInUser(Principal principal){
-        return "hi aakash this is admin" ;  // return the name of current login in user
+        return this.userService.getUsers();
     }
+
 }

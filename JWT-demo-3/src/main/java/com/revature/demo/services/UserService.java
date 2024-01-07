@@ -30,10 +30,12 @@ public class UserService {
         User user=new User();
 
         user.setUserId(UUID.randomUUID().toString());
-        user.setName(signUoRequest.getName());
+        user.setFirstName(signUoRequest.getFirstName());
+        user.setLastName(signUoRequest.getLastName());
         user.setEmail(signUoRequest.getEmail());
+        user.setPhoneNo(signUoRequest.getPhoneNo());
         user.setPassword(passwordEncoder.encode(signUoRequest.getPassword()));
-        user.setAbout(signUoRequest.getAbout());
+        user.setAddress(signUoRequest.getAddress());
         user.setRole(Role.USER);
         System.out.println(user +"created user");
         return userRepository.save(user);

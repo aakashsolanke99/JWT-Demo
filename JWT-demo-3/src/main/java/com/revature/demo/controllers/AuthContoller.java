@@ -17,9 +17,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("auth")
+@RequestMapping("user")
 public class AuthContoller {
 
     @Autowired
@@ -33,6 +35,13 @@ public class AuthContoller {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("getAllUser")
+    public List<User> getUser(){
+
+        return this.userService.getUsers();
+    }
+
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
 
